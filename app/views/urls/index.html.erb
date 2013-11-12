@@ -13,7 +13,11 @@
 	<h1>Total <%= Url.count %> URLs</h1>
 
 		<%= will_paginate %> 
-	  <%= render @urls %>   
+
+    <ul class="unstyled">
+	     <%= render @urls %>  
+    </ul>
+    
     <%= will_paginate %> 
-	</ul>
+	
 </div>

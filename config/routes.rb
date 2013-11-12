@@ -1,5 +1,8 @@
 MyURLShortener::Application.routes.draw do
+  root 'urls#index'
   resources :urls
+  get '/l/:unique_key', :to => 'urls#link', :as => 'shortLink'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

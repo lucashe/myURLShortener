@@ -1,4 +1,4 @@
 <li>
   <%= url.longURL %> 
-  <%= link_to url.shortURL, url.shortURL %> 
+  <%= link_to shortLink_url(url.shortURL),  shortLink_path(url.shortURL) %> 
 </li>
