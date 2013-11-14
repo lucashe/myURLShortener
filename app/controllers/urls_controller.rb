@@ -40,7 +40,12 @@ class UrlsController < ApplicationController
 
 	def link
 		curLink = Url.find_by_shortURL(params[:unique_key])
-		redirect_to curLink.longURL
+
+		curVisit = Visit.new(url_id: curLink.id, ip: get_ip_address, os: get_operating_system)
+		curVisit.save
+
+		urlDest = curLink.longURL
+		redirect_to urlDest, status: 301 
 	end
 
 	private
