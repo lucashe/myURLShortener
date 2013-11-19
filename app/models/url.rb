@@ -12,7 +12,7 @@
 class Url < ActiveRecord::Base
 	  validates :longURL, :uniqueness => true
 	  
-	  has_many :visits
+	  has_many :visits, dependent: :destroy
 
 
 

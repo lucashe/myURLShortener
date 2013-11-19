@@ -1,4 +1,5 @@
 <li>
   <%= url.longURL %> 
   <%= link_to shortLink_url(url.shortURL),  shortLink_path(url.shortURL) %> 
+  <%= link_to :detail, url_path(url.shortURL) %>
 </li>

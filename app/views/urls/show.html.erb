@@ -1,1 +1,15 @@
-show
+<%= link_to "Home",root_path %>
+<div class="container" data-no-turbolink>
+	<%= @url.longURL %>
+	<h1>Total <%= @visits.count %> Visits</h1>
+
+
+		<%= will_paginate @visits %> 
+
+    <ul class="unstyled">
+	     <%= render :partial => "visit", :collection => @visits %>
+    </ul>
+    
+    <%= will_paginate @visits %> 
+    
+</div>
