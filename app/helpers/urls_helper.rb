@@ -47,6 +47,27 @@ def get_ip_address
 end
 
 
+def completeUrl(u)
+  if !u.match(/^(http|https|ftp)\:\/\//) 
+    u = "http\:\/\/" + u
+  end
 
-	
+  if !u.match(/\/$/)
+    u = u +"\/"
+  end
+
+  return u.downcase  
+end
+
+def uri?(string)
+  url = URI.parse(string)
+  req = Net::HTTP.new(url.host, url.port)
+  res = req.request_head(url.path)
+  true 
+  #%w( http https ).include?(uri.scheme)
+rescue 
+  false
+end
+
+
 end

@@ -16,24 +16,34 @@ class UrlsController < ApplicationController
 	def create
 
 		@url = Url.new(url_params)
+		@url.longURL = completeUrl(@url.longURL)
 
-		#Check if the same URL has been added before
+
+		# Validate the url
+		if !uri?(@url.longURL)
+			flash.now[:error] = "URL " + url_params[:longURL] + " not valid"
+			@urls = Url.paginate(page: params[:page], order: "updated_at DESC")
+			render 'index' and return
+		end
+
+
+		# Check if the same URL has been added before
 		existingUrl = Url.find_by_longURL(@url.longURL)
 		if !existingUrl.nil?
-			flash[:success] = "URL exist already " 
+			flash[:error] = "URL exist already " 
 			existingUrl.update_attribute(:updated_at, Time.now)
 			redirect_to action: :index and return
 		end
 
 		if @url.save
-	      #The short URL is derived from the id
+	      # The short URL is derived from the id
 	      @url.update_columns(shortURL: bijective_encode(@url.id))
 
 	      flash[:success] = "URL added " + @url.shortURL
 	      redirect_to action: :index
 
 		else
-			flash.now[:error] = 'invalid URL'
+			flash.now[:error] = 'Error saving URL'
 			@urls = Url.paginate(page: params[:page], order: "updated_at DESC")
 			render 'index'
 		end
